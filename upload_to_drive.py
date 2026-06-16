@@ -17,8 +17,12 @@ def upload_file_to_drive(filename, mime_type):
         
     print(f"Authenticating and preparing to upload '{filename}'...")
     
-    # Load pre-authorized user credentials from the environment
-    creds, _ = google.auth.default()
+    # Load pre-authorized credentials with required scopes
+    scopes = [
+        'https://www.googleapis.com/auth/drive.file',
+        'https://www.googleapis.com/auth/drive'
+    ]
+    creds, _ = google.auth.default(scopes=scopes)
 
     try:
         # Create Drive API client (v3)
