@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Release Notes Hub & Tweet Composer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- App Header -->
+        <header>
+            <div class="logo-section">
+                <!-- Custom BigQuery Inspired Cloud/Database SVG -->
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#grad1)" />
+                    <path d="M2 17L12 22L22 17" stroke="url(#grad2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="url(#grad3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="grad1" x1="2" y1="2" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                        <linearGradient id="grad2" x1="2" y1="12" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#8b5cf6" />
+                            <stop offset="100%" stop-color="#ec4899" />
+                        </linearGradient>
+                        <linearGradient id="grad3" x1="2" y1="7" x2="22" y2="17" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#3b82f6" />
+                            <stop offset="100%" stop-color="#8b5cf6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div>
+                    <h1>BigQuery Release Hub</h1>
+                    <p>Track updates and share key features to Twitter/X</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button id="btn-refresh" class="btn-primary">
+                    <!-- Refresh SVG Icon -->
+                    <svg id="icon-refresh" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                    </svg>
+                    <!-- Spinner SVG Icon -->
+                    <svg id="icon-spinner" class="spinner" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                    </svg>
+                    <span id="btn-text">Refresh Feed</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Feed Grid -->
+        <main class="feed-section">
+            <div id="loading-state" style="display: none;">
+                <div class="shimmer-card" style="margin-bottom: 1rem;"></div>
+                <div class="shimmer-card" style="margin-bottom: 1rem;"></div>
+                <div class="shimmer-card" style="margin-bottom: 1rem;"></div>
+            </div>
+
+            <div id="empty-state" class="state-container" style="display: none;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <p>No release notes loaded. Click Refresh Feed to fetch the latest BigQuery updates.</p>
+            </div>
+
+            <div id="error-state" class="state-container" style="display: none;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.5">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                <p id="error-message">Failed to load feed data.</p>
+            </div>
+
+            <div id="feed-container">
+                <!-- Release groups injected dynamically -->
+            </div>
+        </main>
+
+        <!-- Sidebar Panel (Tweet Composer) -->
+        <aside class="sidebar-section">
+            <div class="composer-card">
+                <h2 class="composer-title">
+                    <!-- Twitter/X SVG Logo -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    Tweet Composer <span id="selected-count" class="selected-count-badge">0</span>
+                </h2>
+                
+                <textarea id="tweet-text" class="composer-textarea" placeholder="Select release updates on the left or write your own tweet here..."></textarea>
+                
+                <div class="composer-footer">
+                    <span id="char-count" class="char-counter">280 characters remaining</span>
+                    <button id="btn-tweet" class="btn-tweet" disabled>
+                        Share on X
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
